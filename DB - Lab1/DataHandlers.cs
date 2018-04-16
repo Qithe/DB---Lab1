@@ -10,7 +10,7 @@ namespace DB___Lab1
     public class DataHandlers
     {
         //Read
-        public List<WeaponClass> FetchWeaponClasses()
+        public List<WeaponClass> ReadWeapon()
         {
             //lists to store in
             List<WeaponClass> weaponClassesResult = new List<WeaponClass>();
@@ -62,7 +62,7 @@ namespace DB___Lab1
             }
         }
 
-        public List<DmgTypeClass> FetchDmgTypeClasses()
+        public List<DmgTypeClass> ReadDmgType()
         {
             //lists to store in
             List<DmgTypeClass> dmgTypeClassesResult = new List<DmgTypeClass>();
@@ -165,6 +165,48 @@ namespace DB___Lab1
         {
             //Create SQL query string
             string sqlQuery = String.Format($"update [Weapon] set Name = {weaponClass.Name}, BaseDmg = {weaponClass.BaseDmg}, DmgType = {weaponClass.DmgType} where Id = {weaponClass.Id}");
+
+            //Create and open a connction
+            SqlConnection conn = new SqlConnection(Globals.connectionString);
+            try
+            {
+                conn.Open();
+                SqlCommand sqlCommand = new SqlCommand(sqlQuery, conn);
+                sqlCommand.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void UpdateDmgType(DmgTypeClass dmgTypeClass)
+        {
+            //Create SQL query string
+            string sqlQuery = String.Format($"update [Weapon] set Name = {dmgTypeClass.Name}, DmgType = {dmgTypeClass.DmgType}, HealthDmgModifyer = {dmgTypeClass.HealthDmgModifyer}, ManaDmgModifyer = {dmgTypeClass.ManaDmgModifyer}, StaminaDmgModifyer = {dmgTypeClass.StaminaDmgModifyer} where Id = {dmgTypeClass.Id}");
+
+            //Create and open a connction
+            SqlConnection conn = new SqlConnection(Globals.connectionString);
+            try
+            {
+                conn.Open();
+                SqlCommand sqlCommand = new SqlCommand(sqlQuery, conn);
+                sqlCommand.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void RemoveEntity(int id, string tableToRemoveFrom)
+        {
+            //Create SQL query string
+            string sqlQurey = String.Format($"Delete from {tableToRemoveFrom} where Id = {id}");
 
             //Create and open a connction
             SqlConnection conn = new SqlConnection(Globals.connectionString);

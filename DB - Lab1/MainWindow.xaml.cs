@@ -40,8 +40,8 @@ namespace DB___Lab1
             ListBox_DmgTypes.Items.Clear();
 
             //Fetch the fresh data
-            WeaponList = dh.FetchWeaponClasses().ToList();
-            DmgTypeList = dh.FetchDmgTypeClasses().ToList();
+            WeaponList = dh.ReadWeapon().ToList();
+            DmgTypeList = dh.ReadDmgType().ToList();
 
             //Put data in respective list and set the display
             foreach (WeaponClass weapon in WeaponList)
